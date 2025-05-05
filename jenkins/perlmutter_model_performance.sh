@@ -16,9 +16,27 @@ main() {
     # User-defined configuration
     #---------------------------------------------------------------
 
-    machine=pm-cpu 
-    compiler=gnu 
+    # Perlmutter
+    # machine=pm-cpu 
+    # compiler=gnu 
+    # project=e3sm 
+    # workdir=/pscratch/sd/m/meng/compare_model_performance 
+    # plotdir=/global/cfs/cdirs/e3sm/www/meng/compare_performance  # make sure this a www in your Community directory to check the plot as a html page
+    # html_address=https://portal.nersc.gov/cfs/e3sm/meng/compare_performance
+    # module load python 
+
+    # Compy
+    machine=compy
+    compiler=intel
     project=e3sm 
+    workdir=/compyfs/huan967/compare_model_performance 
+    plotdir=/compyfs/www/huan967/compare_performance
+    html_address=https://compy-dtn.pnl.gov/huan967/compare_performance  
+    module load python/miniconda4.12.0 
+
+    if [ ! -d $plotdir ]; then
+        mkdir -p $plotdir 
+    fi
 
     compset=F2010-EAMxx-MAM4xx   #F2010-SCREAMv1 
     resolution=ne4pg2_oQU480 
@@ -30,13 +48,6 @@ main() {
     # SMS test run
     case=SMS_$pe_$runtime.$resolution.$compset.${machine}_$compiler
 
-    workdir=/pscratch/sd/m/meng/compare_model_performance 
-    plotdir=/global/cfs/cdirs/e3sm/www/meng/compare_performance  # make sure this a www in your Community directory to check the plot as a html page
-    html_address=https://portal.nersc.gov/cfs/e3sm/meng/compare_performance
-    if [ ! -d $plotdir ]; then
-        mkdir -p $plotdir 
-    fi
-
     branch1=master
     branch2=singhbalwinder/whannah/eam/zm-cleanup-07-COPY_042525
 
@@ -47,12 +58,12 @@ main() {
     code_root1=$workdir/E3SM-$casename1 
     code_root2=$workdir/E3SM-$casename2
 
-    do_fetch_code=false
-    do_run_case=false 
-    do_plot=true  
+    do_fetch_code=true
+    do_run_case=true  
 
     # If you only need to tweak the plot, set the plot_str to the date string of the run.
-    plot_str=20250503_173057
+    do_plot=true 
+    # plot_str=20250503_173057
 
     #---------------------------------------------------------------
     # User-defined configuration ENDs
@@ -90,7 +101,6 @@ main() {
     case_root1=$workdir/$case.${casename1}_${plot_str}  
     case_root2=$workdir/$case.${casename2}_${plot_str}
 
-    module load python 
     python compare_model_performance_plot.py \
         --case1 $case_root1 --casename1 $casename1 \
         --case2 $case_root2 --casename2 $casename2 \
