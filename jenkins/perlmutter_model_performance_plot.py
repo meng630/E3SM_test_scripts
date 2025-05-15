@@ -89,12 +89,12 @@ def plot_mam4_process(dfeam, dfaer, axl, axr):
             kw["arrowprops"].update({"connectionstyle": connectionstyle,"color":colors[i]})
             axl.annotate(labels[i], xy=(x, y), xytext=(1.2*np.sign(x), y),
                         horizontalalignment=horizontalalignment, **kw)
-            axl.axis('equal') 
-            # create handles and labels for legend, take only those where value is < 1
-            handles = [h for h,r in zip(wedges,eam_ratios) if r < 0.01]
-            axl.legend(handles, l, fontsize='small', ncols=2, bbox_to_anchor=(0.5,0.01), loc='lower center', 
-                    title='EAMxx process < 1%', title_fontsize='small', handlelength=0.5, handleheight=0.5, handletextpad=0.5, columnspacing=0.5)  
-            axl.set_title('EAMxx/MAM4xx', fontsize='large', y=0.8)
+    axl.axis('equal') 
+    # create handles and labels for legend, take only those where value is < 1
+    handles = [h for h,r in zip(wedges,eam_ratios) if r < 0.01]
+    axl.legend(handles, l, fontsize='small', ncols=2, bbox_to_anchor=(0.5,0.01), loc='lower center', 
+            title='EAMxx process < 1%', title_fontsize='small', handlelength=0.5, handleheight=0.5, handletextpad=0.5, columnspacing=0.5)  
+    axl.set_title('EAMxx/MAM4xx', fontsize='large', y=0.8)
 
 
     mam_ratios = dfaer['walltotal'] / dfaer['walltotal'].sum() 
@@ -114,11 +114,11 @@ def plot_mam4_process(dfeam, dfaer, axl, axr):
             kw["arrowprops"].update({"connectionstyle": connectionstyle,"color":colors[i]})
             axr.annotate(mam_labels[i], xy=(x, y), xytext=(1.15*np.sign(x), y),
                         horizontalalignment=horizontalalignment, **kw)
-            handles = [h for h,i in zip(wedges2,mam_ratios) if i < 0.01]
-            axr.legend(handles, l2, fontsize='small', ncols=2, bbox_to_anchor=(0.5,0.01), loc='lower center', 
-                    title='MAM4xx process < 1%', title_fontsize='small', handlelength=0.5, handleheight=0.5, handletextpad=0.5, columnspacing=0.5)  
-            axr.set_title('MAM4xx', fontsize='large', y=0.8)
-            axr.axis('equal')
+    handles = [h for h,r in zip(wedges2,mam_ratios) if r < 0.01]
+    axr.legend(handles, l2, fontsize='small', ncols=2, bbox_to_anchor=(0.5,0.01), loc='lower center', 
+            title='MAM4xx process < 1%', title_fontsize='small', handlelength=0.5, handleheight=0.5, handletextpad=0.5, columnspacing=0.5)  
+    axr.set_title('MAM4xx', fontsize='large', y=0.8)
+    axr.axis('equal')
 
 
 def plot_eam_process(dfeam, ax):
@@ -154,12 +154,12 @@ def plot_eam_process(dfeam, ax):
                         horizontalalignment=horizontalalignment, **kw)
             ax.axis('equal') 
             # create handles and labels for legend, take only those where value is < 1
-            handles = [h for h,r in zip(wedges,eam_ratios) if r < 0.01]
-            ax.legend(handles, l, fontsize='small', title='EAMxx process < 1%', title_fontsize='small', 
-                      handlelength=0.5, handleheight=0.5, handletextpad=0.5, columnspacing=0.5,
-                    #   ncols=2, bbox_to_anchor=(0.5,0.01), loc='lower center', 
-                    )  
-            ax.set_title('EAMxx', fontsize='large')
+    handles = [h for h,r in zip(wedges,eam_ratios) if r < 0.01]
+    ax.legend(handles, l, fontsize='small', title='EAMxx process < 1%', title_fontsize='small', 
+                handlelength=0.5, handleheight=0.5, handletextpad=0.5, columnspacing=0.5,
+            #   ncols=2, bbox_to_anchor=(0.5,0.01), loc='lower center', 
+            )  
+    ax.set_title('EAMxx', fontsize='large')
 
 
 t1, taer1 = grab_timing(case1)
